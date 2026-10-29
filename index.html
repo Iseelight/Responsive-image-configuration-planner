@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plan responsive image widths and generate srcset and HTML markup for sharper, faster-loading images.">
+  <meta name="theme-color" content="#f4f6fa">
+  <title>Responsive Image Planner | ImagePlan</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./">ImagePlan</a>
+    <span>FRONTEND TOOLKIT</span>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <p class="eyebrow">PERFORMANCE / IMAGES</p>
+      <h1>Plan smarter responsive images.</h1>
+      <p>Generate image candidates and responsive HTML from your layout requirements.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Image settings</h2>
+      <form id="planner-form">
+        <label for="image-file">Image file</label>
+        <input
+          id="image-file"
+          type="file"
+          accept="image/*"
+          aria-describedby="image-file-help"
+          required
+        >
+        <p id="image-file-help" class="field-help">
+          The image stays on your device. Its dimensions are read in your browser and nothing is uploaded.
+        </p>
+
+        <label for="alt-text">Alternative text</label>
+        <input id="alt-text" type="text" aria-describedby="alt-text-help" placeholder="Describe the image">
+        <p id="alt-text-help" class="field-help">Leave this blank only if the image is decorative.</p>
+
+        <div class="fields">
+          <div>
+            <label for="original-width">Original image width (px)</label>
+            <output id="original-width" class="dimension-value" aria-live="polite">Choose an image file</output>
+          </div>
+          <div>
+            <label for="display-width">Maximum display width (px)</label>
+            <input id="display-width" type="number" min="1" max="100000" step="1" value="800" required>
+          </div>
+          <div>
+            <label for="device-pixel-ratio">Device pixel ratio</label>
+            <select id="device-pixel-ratio">
+              <option value="1">1x — Standard</option>
+              <option value="2" selected>2x — Retina</option>
+              <option value="3">3x — High density</option>
+            </select>
+          </div>
+          <div>
+            <label for="candidate-count">Maximum candidate widths</label>
+            <select id="candidate-count">
+              <option value="4">4 widths</option>
+              <option value="6" selected>6 widths</option>
+              <option value="8">8 widths</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="primary" type="submit" disabled>Generate configuration</button>
+      </form>
+
+      <h3 class="preview-heading">Image preview</h3>
+      <div id="preview" class="preview" role="status" aria-live="polite">
+        <p>Choose an image file to preview it here.</p>
+      </div>
+    </section>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <section id="results" aria-labelledby="results-heading" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">GENERATED OUTPUT</p>
+          <h2 id="results-heading" tabindex="-1">Image configuration</h2>
+        </div>
+      </div>
+
+      <div class="metrics" id="metrics"></div>
+
+      <section class="panel">
+        <h3>Recommended image widths</h3>
+        <div id="width-list" class="width-list"></div>
+      </section>
+
+      <section class="panel">
+        <h3>Generated srcset</h3>
+        <pre><code id="srcset-output"></code></pre>
+        <button class="secondary" data-copy="srcset-output">Copy srcset</button>
+      </section>
+
+      <section class="panel">
+        <h3>Generated HTML</h3>
+        <pre><code id="html-output"></code></pre>
+        <p class="field-help">
+          Create resized image files with these names and widths. The uploaded original is not modified.
+        </p>
+        <button class="secondary" data-copy="html-output">Copy HTML</button>
+      </section>
+
+    </section>
+  </main>
+</body>
+</html>
